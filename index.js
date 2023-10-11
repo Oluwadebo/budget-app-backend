@@ -11,14 +11,6 @@ const { Server } = require("socket.io");
 const app = express();
 dotenv.config();
 
-const server = http.createServer(app)
-const io = new Server(server, {
-    cors: {
-        origin: "*",
-        methods: ['POST', 'PUT', 'GET']
-    }
-});
-
 const { checker } = require("./middleware/middleware");
 const { users, adduser } = require("./store");
 const { sendmail } = require("./mailer");
@@ -45,6 +37,8 @@ cloudinary.config({
 app.post("/adminsignup", adminregist)
 app.post("/adminsignin", adminlogin)
 app.get("/Admin", admin)
+
+
 app.post("/adminfiles", adminfiles)
 app.post("/admindel", delproduct)
 app.post("/files", file)
@@ -58,9 +52,8 @@ app.post("/Viewproduct", Viewproduct)
 // app.post("/addtocart", addtocart)
 // app.post("/removeaddtocart", removeaddtocart)
 
-const port = process.env.PORT || 5010
+const port = 5011
 
 app.listen(port, () => {
-    // sendmail(["adewoleadekulemercy@gmail.com","felixadegboyega2019@gmail.com","bakareoluwatobi22@gmail.com"])
     console.log("Server started");
 })
