@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary')
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 
 const app = express();
 dotenv.config();
