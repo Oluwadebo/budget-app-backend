@@ -7,20 +7,25 @@ const { adminmail } = require('../mailer');
 require('dotenv').config()
 
 const adminregist = (req, res) => {
-    const information = req.body;
+    let email = req.body.email;
     let useremail = req.body.email;
-    AdminModel.create(information, (err) => {
-        if (err) {
+    let information = new AdminModel(req.body)
+    AdminModel.find({ email }).then((message) => {
+        if (message != "") {
             res.send({ message: "Email already used", status: false })
         } else {
-            adminmail(useremail)
-            res.send({ message: "saved", status: true })
+            information.save().then((err) => {
+                if (err) {
+                    res.send({ message: "saved", status: false })
+                }
+            })
         }
     })
 }
 
 const adminlogin = (req, res) => {
     const { email, password } = req.body;
+
     AdminModel.findOne({ email }, async (err, message) => {
         if (err) {
             res.send(err)
